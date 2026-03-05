@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Classes</title> <style>
+    <title>Classes</title> 
+    <style>
         body { font-family: sans-serif; padding: 40px; display: flex; flex-direction: column; align-items: center; }
         .header { width: 100%; max-width: 1000px; display: flex; justify-content: flex-start; margin-bottom: 40px; }
-        .title { font-size: 24px; font-weight: bold; width: 200px; }
+        .title { font-size: 24px; font-weight: bold; width: 220px; line-height: 1.2; }
         .search-text { margin-left: 20px; color: gray; }
         
         .grid { 
@@ -24,6 +25,7 @@
             justify-content: center;
             font-weight: bold;
             transition: 0.2s;
+            background: white;
         }
         .box:hover { background: #f0f0f0; transform: scale(1.02); }
     </style>
@@ -36,34 +38,38 @@
     </div>
 
     <div class="grid">
-        <div class="box" onclick="launch('game1')">GAME 1</div>
-        <div class="box" onclick="launch('game2')">GAME 2</div>
-        <div class="box" onclick="launch('game3')">GAME 3</div>
+        <div class="box" onclick="launch()">GAME 1</div>
+        <div class="box" onclick="boxLaunch()">GAME 2</div>
+        <div class="box" onclick="boxLaunch()">GAME 3</div>
     </div>
 
     <script>
-        function launch(gameName) {
+        function launch() {
             // 1. Open the blank page
             var win = window.open('about:blank', '_blank');
 
-            // 2. Define your central Hub URL
-            // This is the link you provided
-            var baseUrl = "https://dpcreal.github.io/games/";
+            // 2. This is the specific website you wanted the portal to lead to
+            var finalUrl = "https://dpcreal.github.io/games/";
 
-            // 3. Build the final URL (e.g., https://dpcreal.github.io/games/game1.html)
-            var finalUrl = baseUrl + gameName + ".html";
-
-            // 4. Inject the iframe into the blank page
+            // 3. Set up the blank page body
             win.document.body.style.margin = '0';
             win.document.body.style.height = '100vh';
+            win.document.body.style.overflow = 'hidden';
             
+            // 4. Create and inject the iframe
             var iframe = win.document.createElement('iframe');
             iframe.style.border = 'none';
             iframe.style.width = '100%';
             iframe.style.height = '100%';
+            iframe.style.margin = '0';
             iframe.src = finalUrl;
 
             win.document.body.appendChild(iframe);
+        }
+
+        // Shortcut to make all boxes do the same thing for now
+        function boxLaunch() {
+            launch();
         }
     </script>
 
