@@ -1,36 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Game Portal</title>
-    <style>
-        body { font-family: sans-serif; text-align: center; padding-top: 50px; }
-        button { padding: 15px 25px; font-size: 18px; cursor: pointer; border-radius: 8px; border: none; background: #007BFF; color: white; }
-        button:hover { background: #0056b3; }
+    <meta charset="UTF-8">
+    <title>Classes</title> <style>
+        body { font-family: sans-serif; padding: 40px; display: flex; flex-direction: column; align-items: center; }
+        .header { width: 100%; max-width: 1000px; display: flex; justify-content: flex-start; margin-bottom: 40px; }
+        .title { font-size: 24px; font-weight: bold; width: 200px; }
+        .search-text { margin-left: 20px; color: gray; }
+        
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px; 
+            width: 100%; 
+            max-width: 1000px; 
+        }
+        .box { 
+            aspect-ratio: 1/1; 
+            border: 3px solid black; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .box:hover { background: #f0f0f0; transform: scale(1.02); }
     </style>
 </head>
 <body>
 
-    <h1>Click to Play Safely</h1>
-    <button onclick="openGame('https://dpcreal.github.io/games/')">Launch Game</button>
+    <div class="header">
+        <div class="title">Woodpecker (from dps) game portal</div>
+        <div class="search-text">Search bar will be here.</div>
+    </div>
+
+    <div class="grid">
+        <div class="box" onclick="launch('game1')">GAME 1</div>
+        <div class="box" onclick="launch('game2')">GAME 2</div>
+        <div class="box" onclick="launch('game3')">GAME 3</div>
+    </div>
 
     <script>
-        function openGame(url) {
-            // 1. Open a new blank window
+        function launch(gameName) {
+            // 1. Open the blank page
             var win = window.open('about:blank', '_blank');
 
-            // 2. Style the new window's body to remove margins
+            // 2. Define your central Hub URL
+            // This is the link you provided
+            var baseUrl = "https://dpcreal.github.io/games/";
+
+            // 3. Build the final URL (e.g., https://dpcreal.github.io/games/game1.html)
+            var finalUrl = baseUrl + gameName + ".html";
+
+            // 4. Inject the iframe into the blank page
             win.document.body.style.margin = '0';
             win.document.body.style.height = '100vh';
-
-            // 3. Create the iframe
+            
             var iframe = win.document.createElement('iframe');
             iframe.style.border = 'none';
             iframe.style.width = '100%';
             iframe.style.height = '100%';
-            iframe.style.margin = '0';
-            iframe.src = url;
+            iframe.src = finalUrl;
 
-            // 4. Put the iframe into the blank window
             win.document.body.appendChild(iframe);
         }
     </script>
