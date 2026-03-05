@@ -1,99 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Launcher</title>
-    <script>
-        window.onload = function() {
-            try {
-                let gameWindow = window.open('about:blank', '_blank');
-                
-                if (gameWindow) {
-                    gameWindow.document.write(
-                        '<!DOCTYPE html>' +
-                        '<html lang="en">' +
-                        '<head>' +
-                        '    <meta charset="UTF-8">' +
-                        '    <meta name="viewport" content="width=device-width, initial-scale=1.0">' +
-                        '    <title>Games Hub</title>' +
-                        '    <style>' +
-                        '        body { ' +
-                        '            font-family: Arial, sans-serif; ' +
-                        '            background-color: #f0f0f0; ' +
-                        '            color: #333; ' +
-                        '            text-align: center; ' +
-                        '            padding: 20px; ' +
-                        '        }' +
-                        '        h1 { color: #4CAF50; }' +
-                        '        .game-list { ' +
-                        '            list-style-type: none; ' +
-                        '            padding: 0; ' +
-                        '        }' +
-                        '        .game-item { ' +
-                        '            margin: 10px 0; ' +
-                        '        }' +
-                        '        .game-item a { ' +
-                        '            display: inline-block; ' +
-                        '            padding: 10px 20px; ' +
-                        '            background-color: #2196F3; ' +
-                        '            color: white; ' +
-                        '            text-decoration: none; ' +
-                        '            border-radius: 5px; ' +
-                        '        }' +
-                        '        .game-item a:hover { ' +
-                        '            background-color: #1976D2; ' +
-                        '        }' +
-                        '        iframe { ' +
-                        '            width: 80%; ' +
-                        '            height: 500px; ' +
-                        '            border: 1px solid #ccc; ' +
-                        '            margin: 20px auto; ' +
-                        '            display: block; ' +
-                        '        }' +
-                        '    </style>' +
-                        '</head>' +
-                        '<body>' +
-                        '    <h1>Welcome to Games Hub!</h1>' +
-                        '    <p>Choose a game to play below. These are embedded from free online sources.</p>' +
-                        '    ' +
-                        '    <ul class="game-list">' +
-                        '        <li class="game-item">' +
-                        '            <a href="#" onclick="loadGame(\'https://html5.gamedistribution.com/some-free-game-url/\'); return false;">Play Game 1: Example Puzzle</a>' +
-                        '        </li>' +
-                        '        <li class="game-item">' +
-                        '            <a href="#" onclick="loadGame(\'https://www.crazygames.com/embed/some-game\'); return false;">Play Game 2: Action Adventure</a>' +
-                        '        </li>' +
-                        '        <li class="game-item">' +
-                        '            <a href="#" onclick="loadGame(\'https://itch.io/embed-upload/some-game-id\'); return false;">Play Game 3: Retro Classic</a>' +
-                        '        </li>' +
-                        '        <!-- Add more games as needed -->' +
-                        '    </ul>' +
-                        '    ' +
-                        '    <div id="game-container"></div>' +
-                        '    ' +
-                        '    <script>' +
-                        '        function loadGame(url) {' +
-                        '            const container = document.getElementById(\'game-container\');' +
-                        '            container.innerHTML = \'<iframe src="\' + url + \'" allowfullscreen></iframe>\';' +
-                        '        }' +
-                        '    </script>' +
-                        '</body>' +
-                        '</html>'
-                    );
-                    
-                    gameWindow.document.close();
-                } else {
-                    alert('Popup blocked! Please allow popups for this site.');
-                }
-            } catch (error) {
-                console.error('Script error:', error);
-                alert('An error occurred while loading the games. Check the console for details.');
-            }
-        };
-    </script>
+    <title>My Game Portal</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; }
+        button { padding: 15px 25px; font-size: 18px; cursor: pointer; border-radius: 8px; border: none; background: #007BFF; color: white; }
+        button:hover { background: #0056b3; }
+    </style>
 </head>
 <body>
-    <p>Opening games in a new tab...</p>
+
+    <h1>Click to Play Safely</h1>
+    <button onclick="openGame('https://www.example-game.com')">Launch Game</button>
+
+    <script>
+        function openGame(url) {
+            // 1. Open a new blank window
+            var win = window.open('about:blank', '_blank');
+
+            // 2. Style the new window's body to remove margins
+            win.document.body.style.margin = '0';
+            win.document.body.style.height = '100vh';
+
+            // 3. Create the iframe
+            var iframe = win.document.createElement('iframe');
+            iframe.style.border = 'none';
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.margin = '0';
+            iframe.src = url;
+
+            // 4. Put the iframe into the blank window
+            win.document.body.appendChild(iframe);
+        }
+    </script>
+
 </body>
 </html>
