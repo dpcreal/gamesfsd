@@ -1,51 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>New Tab</title>
-</head>
-<body style="background: #121212; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; color: white;">
+function launch(mode) {
+    var targetUrl = "";
 
-    <h1>Woodpecker Stealth</h1>
-    
-    <input type="text" id="urlInput" placeholder="Enter URL (e.g., example.com)" style="width: 350px; padding: 12px; border-radius: 5px; border: none; margin-bottom: 10px;">
-    
-    <div style="display: flex; gap: 10px;">
-        <button onclick="launch('custom')" style="padding: 10px 20px; cursor: pointer; background: #444; color: white; border: none; border-radius: 5px;">Launch URL</button>
-        
-        <button onclick="launch('games')" style="padding: 10px 20px; cursor: pointer; background: #28a745; color: white; border: none; border-radius: 5px;">Open Game Hub</button>
-    </div>
+    if (mode === 'games') {
+        targetUrl = "https://dpcreal.github.io/games/";
+    } else {
+        var input = document.getElementById('urlInput').value;
+        if (!input) return alert("Please enter a URL");
+        targetUrl = input.startsWith('http') ? input : 'https://' + input;
+    }
 
-    <script>
-        function launch(mode) {
-            var targetUrl = "";
+    var win = window.open('about:blank', '_blank');
+    if (win) {
+        win.document.body.style.margin = '0';
+        win.document.body.style.height = '100vh';
 
-            if (mode === 'games') {
-                // Point this to your actual games portal URL
-                targetUrl = "https://dpcreal.github.io/games/";
-            } else {
-                var input = document.getElementById('urlInput').value;
-                if (!input) return alert("Please enter a URL");
-                
-                targetUrl = input.startsWith('http') ? input : 'https://' + input;
-            }
+        // 1. Add the bypass scripts to the new window
+        var script1 = win.document.createElement('script');
+        script1.src = "https://unpkg.com/@ungap/custom-elements-builtin";
+        win.document.head.appendChild(script1);
 
-            var win = window.open('about:blank', '_blank');
-            if (win) {
-                win.document.body.style.margin = '0';
-                win.document.body.style.height = '100vh';
-                
-                var iframe = win.document.createElement('iframe');
-                iframe.style.width = '100%';
-                iframe.style.height = '100%';
-                iframe.style.border = 'none';
-                iframe.src = targetUrl;
+        var script2 = win.document.createElement('script');
+        script2.type = "module";
+        script2.src = "https://unpkg.com/x-frame-bypass";
+        win.document.head.appendChild(script2);
 
-                win.document.body.appendChild(iframe);
-            } else {
-                alert("Pop-up blocked!");
-            }
-        }
-    </script>
-</body>
-</html>
+        // 2. Create the SPECIAL iframe that uses the bypass
+        var iframe = win.document.createElement('iframe', { is: 'x-frame-bypass' });
+        iframe.setAttribute('is', 'x-frame-bypass'); // Crucial for the script to work
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.border = 'none';
+        iframe.src = targetUrl;
+
+        win.document.body.appendChild(iframe);
+    } else {
+        alert("Pop-up blocked!");
+    }
+}
