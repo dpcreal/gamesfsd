@@ -2,89 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classes</title> <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #1a1a1a; /* Dark sleek background */
-            font-family: sans-serif;
-            color: white;
-            flex-direction: column;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-            font-size: 2.5rem;
-        }
-
-        .play-btn {
-            padding: 20px 50px;
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-            background-color: #28a745; /* Green play button */
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.2s, background-color 0.2s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        .play-btn:hover {
-            background-color: #218838;
-            transform: scale(1.1);
-        }
-
-        .subtext {
-            margin-top: 15px;
-            color: #888;
-            font-size: 14px;
-        }
-    </style>
+    <title>New Tab</title>
 </head>
-<body>
+<body style="background: #121212; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif;">
 
-    <h1>Woodpecker Portal</h1>
+    <h1 style="color: white;">Web Disguise</h1>
     
-    <button class="play-btn" onclick="openGamingHub()">PLAY NOW</button>
-
-    <p class="subtext">Click to open the portal in a stealth tab</p>
+    <input type="text" id="urlInput" placeholder="https://example.com" style="width: 300px; padding: 10px; margin-bottom: 20px;">
+    
+    <button onclick="launchDisguise()" style="padding: 10px 20px; cursor: pointer;">Launch Website</button>
 
     <script>
-        function openGamingHub() {
-            // 1. Open the about:blank page
-            var win = window.open('about:blank', '_blank');
-
-            // 2. The URL of your gaming hub
-            var hubUrl = "https://dpcreal.github.io/games/";
-
-            // 3. Inject the CSS and Iframe into the new blank window
-            if (win) {
-                // Remove margins from the blank page
-                win.document.body.style.margin = '0';
-                win.document.body.style.height = '100vh';
-                win.document.body.style.overflow = 'hidden';
-
-                // Create the iframe
-                var iframe = win.document.createElement('iframe');
-                iframe.style.border = 'none';
-                iframe.style.width = '100%';
-                iframe.style.height = '100%';
-                iframe.style.margin = '0';
-                iframe.src = hubUrl;
-
-                // Add the iframe to the blank page
-                win.document.body.appendChild(iframe);
-            } else {
-                alert("Pop-up blocked! Please allow pop-ups to launch the portal.");
+        function launchDisguise() {
+            var url = document.getElementById('urlInput').value;
+            
+            // Ensure the URL starts with http
+            if (!url.startsWith('http')) {
+                url = 'https://' + url;
             }
+
+            var win = window.open('about:blank', '_blank');
+            var iframe = win.document.createElement('iframe');
+            
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.border = 'none';
+            iframe.style.margin = '0';
+            iframe.src = url;
+
+            win.document.body.style.margin = '0';
+            win.document.body.style.height = '100vh';
+            win.document.body.appendChild(iframe);
         }
     </script>
-
 </body>
 </html>
